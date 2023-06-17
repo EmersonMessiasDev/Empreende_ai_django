@@ -1,0 +1,297 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'conteudo' %}
+
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs">
+      <div class="page-header d-flex align-items-center" style="background-image: url('');">
+        <div class="container position-relative">
+          <div class="row d-flex justify-content-center">
+            <div class="col-lg-6 text-center">
+              <h2>Blog Detalhes</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <nav>
+        <div class="container">
+          <ol>
+            <li><a href="{% url 'home:home' %}">Home</a></li>
+            <li><a href="{% url 'blog:blog' %}">Blog</a></li>
+            <li>Blog Details</li>
+          </ol>
+        </div>
+      </nav>
+    </div><!-- End Breadcrumbs -->
+
+    <!-- ======= Blog Details Section ======= -->
+    <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row g-5">
+
+          <div class="col-lg-8">
+
+            <article class="blog-details">
+
+              <div class="post-img">
+                <img src="{{post.image.url}}" alt="" class="img-fluid">
+              </div>
+
+              <h2 class="title">{{post.titulo}}</h2>
+
+              <div class="meta-top">
+                <ul>
+                  <li class="d-flex align-items-center"><i class="bi bi-person"></i> <a href="javascript:void(0)">{{post.usuario}}</a></li>
+                  <li class="d-flex align-items-center"><i class="bi bi-clock"></i> <a href="javascript:void(0)"><time datetime="2020-01-01">{{post.data}}</time></a></li>
+                  <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i> <a href="javascript:void(0)">{{total_comentarios}}</a></li>
+                </ul>
+              </div><!-- End meta top -->
+
+              <div class="content">
+                {{post.post|safe}}
+
+                {% comment %} <blockquote>
+                  <p>
+                    Et vero doloremque tempore voluptatem ratione vel aut. Deleniti sunt animi aut. Aut eos aliquam doloribus minus autem quos.
+                  </p>
+                </blockquote> {% endcomment %}
+
+
+
+              </div><!-- End post content -->
+
+              {% comment %} <div class="meta-bottom">
+                <i class="bi bi-folder"></i>
+                <ul class="cats">
+                  <li><a href="#">Business</a></li>
+                </ul>
+
+                <i class="bi bi-tags"></i>
+                <ul class="tags">
+                  <li><a href="#">Creative</a></li>
+                  <li><a href="#">Tips</a></li>
+                  <li><a href="#">Marketing</a></li>
+                </ul>
+              </div><!-- End meta bottom --> {% endcomment %}
+
+            </article><!-- End blog post -->
+
+            {% comment %}<div class="post-author d-flex align-items-center">
+               <img src="{% static 'base/img/blog/blog-author.jpg' %}" class="rounded-circle flex-shrink-0" alt=""> {% 
+              <div>
+                <h4>{{post.usuario}}</h4>
+                <div class="social-links">
+                  <a href="https://twitters.com/#"><i class="bi bi-twitter"></i></a>
+                  <a href="https://facebook.com/#"><i class="bi bi-facebook"></i></a>
+                  <a href="https://instagram.com/#"><i class="biu bi-instagram"></i></a>
+                </div>
+                <p>
+                  Itaque quidem optio quia voluptatibus dolorem dolor. Modi eum sed possimus accusantium. Quas repellat voluptatem officia numquam sint aspernatur voluptas. Esse et accusantium ut unde voluptas.
+                </p> 
+              </div>
+            </div>{% endcomment %}
+
+            <div class="comments" id="ancora">
+
+              <h4 class="comments-count">{{total_comentarios}} Comentarios</h4>
+          <!-- LOOP COMENTARIOS PAI -->
+            {% for comentario in comentario %}
+              <div id="comment-{{ comentario.id }}" class="comment">
+                <div class="d-flex">
+                  <div class="comment-img"><img src="{% static 'base/img/blog/17004.png' %}" alt=""></div>
+                  <div>
+                    
+                    <div class="d-flex align-items-center">
+                      <h5><a>{{ comentario.usuario }}</a></h5>
+                      {% if 'usuario' in request.session and request.session.usuario == comentario.usuario_id %}
+                          <form method="post" action="{% url 'blog:excluir_comentario' 'comentario' comentario.id %}" class="ml-2">
+                              {% csrf_token %}
+                              <button type="submit" class="btn p-0"><i class="bi bi-trash"></i></button>
+                          </form>
+                      {% endif %}
+                      <h5>{% if 'usuario' in request.session %}<a href="javascript:void(0)" class="reply ml-2" onclick="toggleReplyForm({{ comentario.id }})"><i class="bi bi-reply-fill"></i> Responder</a>{% endif %}</h5>
+                  </div>
+
+                    <time datetime="2020-01-01">{{ comentario.data }}</time>
+                    <p>
+                      {{ comentario.comentario }}
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Formulário de Resposta comentario pai -->
+                <div id="comment-reply-form-{{ comentario.id }}" class="comment-reply-form" style="display: none;">
+                  <form method="post" action="{% url 'blog:responder_comentario' %}" class="form-resposta">
+                    {% csrf_token %}
+                    <input type="hidden" name="comentario_pai" value="{{ comentario.id }}">
+                    <div class="mb-3">
+                      <textarea class="form-control" name="resposta" rows="3" placeholder="Digite sua resposta"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                  </form>
+                </div>
+            
+                <!-- LOOP COMENTARIOS RESPOSTAS -->
+                {% for resposta in comentario.respostas.all %}
+                  <div id="comment-reply-{{ comentario.id }}-{{ resposta.id }}" class="comment comment-reply">
+                    <div class="d-flex">
+                      <div class="comment-img"><img src="{% static 'base/img/blog/17004.png' %}" alt=""></div>
+                      <div>
+                        <div class="d-flex align-items-center">
+                          <h5><a>{{ resposta.usuario }}</a></h5>
+                          {% if 'usuario' in request.session and request.session.usuario == resposta.usuario_id %}
+                              <form method="post" action="{% url 'blog:excluir_comentario' 'resposta' resposta.id %}" class="ml-2">
+                                  {% csrf_token %}
+                                  <button type="submit" class="btn p-0"><i class="bi bi-trash"></i></button>
+                              </form>
+                          {% endif %}
+                          <h5>{% if 'usuario' in request.session and usuario.id != resposta.usuario_id %}<a href="javascript:void(0)" class="reply"  onclick="toggleReplyForm({{ comentario.id }}, {{ resposta.id }})"><i class="bi bi-reply-fill"></i> Responder</a>{% endif %}</h5>
+                      </div>
+
+
+                        {% comment %} <h5><a>{{ resposta.usuario }}</a> {% if 'usuario' in request.session %}<a href="javascript:void(0)" class="reply" onclick="toggleReplyForm({{ comentario.id }}, {{ resposta.id }})"><i class="bi bi-reply-fill"></i> Responder</a>{% endif %}</h5> {% endcomment %}
+                        <time datetime="2020-01-01">{{ resposta.data }}</time>
+                        <p>
+                          {{ resposta.comentario }}
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Formulário de Resposta resposta -->
+                    <div id="comment-reply-form-{{ comentario.id }}-{{ resposta.id }}" class="comment-reply-form" style="display: none;">
+                      <form method="post" action="{% url 'blog:responder_comentario' %}" class="form-resposta">
+                        {% csrf_token %}
+                        <input type="hidden" name="comentario_pai" value="{{ resposta.id }}">
+                        <div class="mb-3">
+                          <textarea class="form-control" name="resposta" rows="3" placeholder="Digite sua resposta"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                      </form>
+                    </div>
+
+                  </div>
+                {% endfor %}
+              </div>
+            {% endfor %}
+                     
+
+            
+
+              <div class="reply-form" id="ancora">
+
+                <h4>Deixe um comentario</h4>
+                <p>Comente e interaja com outros usuarios.</p>
+                <form method="post" action="{% url 'blog:adicionar_comentario' post.id %}" class="form-comentario">
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="col form-group">
+                      <textarea name="comentario" class="form-control" placeholder="Digite seu comentário"></textarea>
+                    </div>
+                  </div>
+                  {% if 'usuario' in request.session %}
+                  <button type="submit" class="btn btn-primary">Enviar Comentárior</button>
+                  {% else %}
+                  <button type="submit" class="btn btn-primary" disabled>Faça login para comentar!</button>
+                  {% endif %}
+                </form>
+
+              </div>
+
+            </div><!-- End blog comments -->
+
+          </div>
+
+          <div class="col-lg-4">
+
+            <div class="sidebar">
+
+             <div class="sidebar-item search-form">
+                <h3 class="sidebar-title">Pesquisar por assuntos</h3>
+                <form method="GET" action="{% url 'blog:pesquisa' %}" class="mt-3">
+                  {% csrf_token %}
+                  <input name="q" type="text">
+                  <button type="submit"><i class="bi bi-search"></i></button>
+                </form>
+              </div> 
+
+              {% comment %} <div class="sidebar-item categories">
+                <h3 class="sidebar-title">Categories</h3>
+                <ul class="mt-3">
+                  <li><a href="#">General <span>(25)</span></a></li>
+                  <li><a href="#">Lifestyle <span>(12)</span></a></li>
+                  <li><a href="#">Travel <span>(5)</span></a></li>
+                  <li><a href="#">Design <span>(22)</span></a></li>
+                  <li><a href="#">Creative <span>(8)</span></a></li>
+                  <li><a href="#">Educaion <span>(14)</span></a></li>
+                </ul>
+              </div> {% endcomment %}
+
+              <div class="sidebar-item recent-posts">
+                <h3 class="sidebar-title">Posts recentes</h3>
+
+                <div class="mt-3">
+                  {% for blog in blog  %}
+                  <div class="post-item mt-3">
+                    <img src="{{blog.image.url}}" alt="">
+                    <div>
+                      <h4><a href="{% url 'blog:blog_detalhe' blog.id %}">{{blog.titulo}}</a></h4>
+                      <time datetime="2020-01-01">{{blog.data}}</time>
+                    </div>
+                  </div><!-- End recent post item-->
+                  {% endfor %}
+                </div>
+
+              </div><!-- End sidebar recent posts-->
+
+              {% comment %} <div class="sidebar-item tags">
+                <h3 class="sidebar-title">Tags</h3>
+                <ul class="mt-3">
+                  <li><a href="#">App</a></li>
+                  <li><a href="#">IT</a></li>
+                  <li><a href="#">Business</a></li>
+                  <li><a href="#">Mac</a></li>
+                  <li><a href="#">Design</a></li>
+                  <li><a href="#">Office</a></li>
+                  <li><a href="#">Creative</a></li>
+                  <li><a href="#">Studio</a></li>
+                  <li><a href="#">Smart</a></li>
+                  <li><a href="#">Tips</a></li>
+                  <li><a href="#">Marketing</a></li>
+                </ul>
+              </div><!-- End sidebar tags--> {% endcomment %}
+
+            </div><!-- End Blog Sidebar -->
+
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Blog Details Section -->
+
+  </main><!-- End #main -->
+
+  <script>
+    function toggleReplyForm(commentId, replyId) {
+      var formId;
+      if (replyId) {
+        formId = 'comment-reply-form-' + commentId + '-' + replyId;
+      } else {
+        formId = 'comment-reply-form-' + commentId;
+      }
+      var form = document.getElementById(formId);
+      if (form.style.display === 'none') {
+        form.style.display = 'block';
+      } else {
+        form.style.display = 'none';
+      }
+    }
+  </script>
+
+
+  
+  
+  {% endblock %}

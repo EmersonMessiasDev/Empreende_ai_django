@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block 'conteudo' %}
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs">
+      <div class="page-header d-flex align-items-center" style="background-image: url('');">
+        <div class="container position-relative">
+          <div class="row d-flex justify-content-center">
+            <div class="col-lg-6 text-center">
+              <h2>Resultado da Pesqusia</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <nav>
+        <div class="container">
+            <ol>
+                <li><a href="{% url 'home:home' %}">Home</a></li>
+                <li><a href="{% url 'blog:blog' %}">Blog</a></li>
+                <li>Pesquisa</li>
+              </ol>
+        </div>
+      </nav>
+    </div><!-- End Breadcrumbs -->
+
+    <!-- ======= Blog Section ======= -->
+    <section id="blog" class="blog">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row gy-4 posts-list">
+            {% if found %}
+            <!-- Exibir resultados normalmente -->
+            {% for result in results %}
+          <div class="col-xl-4 col-md-6">
+            <article>
+
+              <div class="post-img">
+                <img src="{{result.image.url}}" alt="" class="img-fluid">
+              </div>
+
+              <p class="post-category">{{result.tema}}</p>
+
+              <h2 class="title">
+                <a href="{% url 'blog:blog_detalhe' result.id %}">{{result.titulo}}</a>
+              </h2>
+
+              <div class="d-flex align-items-center">
+                {% comment %} <img src="{% static 'base/img/blog/blog-author.jpg' %}" alt="" class="img-fluid post-author-img flex-shrink-0"> {% endcomment %}
+                <div class="post-meta">
+                  <p class="post-author-list">Autor: {{result.usuario}}</p>
+                  <p class="post-date">
+                    <time datetime="2022-01-01">{{result.data}}</time>
+                  </p>
+                </div>
+              </div>
+
+            </article>
+          </div><!-- End post list item -->
+          {% endfor %}
+          {% else %}
+            <p>Desculpe, não encontramos nada para a sua pesquisa.</p>
+            <div class="d-flex justify-content-left">
+            <button id="backButton" class="btn btn-primary">Voltar</button>
+            </div>
+        {% endif %}
+        </div><!-- End blog posts list -->
+
+      </div>
+    </section><!-- End Blog Section -->
+
+  </main><!-- End #main -->
+  <script>
+    document.getElementById("backButton").onclick = function () {
+        history.back();
+    };
+    </script>
+{% endblock %}

@@ -1,0 +1,468 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block 'conteudo' %}
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="hero">
+    <div class="container position-relative">
+      <div class="row gy-5" data-aos="fade-in">
+        <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center text-center text-lg-start">
+          <h2>{% if 'usuario' in request.session %}Olá {{usuario.userName}}, {% endif %}Bem vindo ao <span>EmpreendeAi</span></h2>
+          <p>Seu passo para o futuro do empreendedorismo começa aqui!</p>
+          {% if 'usuario' not in request.session %}
+          <div class="d-flex justify-content-center justify-content-lg-start">
+            <a href="{% url 'autenticacao:logar' %}" class="btn-get-started">Entrar</a>
+          </div>
+          {% endif %}
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2">
+          <img src="{% static 'base/img/SEO analytics team-rafiki (1).png' %}" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="100">
+        </div>
+      </div>
+    </div>
+
+    <div class="icon-boxes position-relative">
+      <div class="container position-relative">
+        <div class="row gy-4 mt-5">
+
+          <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="icon-box">
+
+              <div class="icon"><i class="bi bi-shield-check"></i></div>
+              <h4 class="title"><a href="" class="stretched-link">MEI: <br><br> O caminho para empreender legalmente.</a></h4>
+            </div>
+          </div><!--End Icon Box -->
+
+          <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="icon-box">
+              <div class="icon"><i <i class="bi bi-lightbulb"></i></div>
+              <h4 class="title"><a href="" class="stretched-link">Torne-se um MEI: <br><br> Empreenda com facilidade!</a></h4>
+            </div>
+          </div><!--End Icon Box -->
+
+          <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="icon-box">
+              <div class="icon"><i class="bi bi-gear"></i></div>
+              <h4 class="title"><a href="" class="stretched-link">Descubra o MEI: <br><br> Simplifique sua empresa!</a></h4>
+            </div>
+          </div><!--End Icon Box -->
+
+          <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="500">
+            <div class="icon-box">
+              <div class="icon"><i class="bi bi-book"></i></div>
+              <h4 class="title"><a href="" >Guia MEI: <br><br> Informações essenciais para começar.</a></h4>
+            </div>
+          </div><!--End Icon Box -->
+
+        </div>
+      </div>
+    </div>
+
+    </div>
+  </section>
+  <!-- End Hero Section -->
+
+  <main id="main">
+
+    <!-- ======= About Us Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Quer saber mais sobre como ser MEI?</h2>
+          <p>Benefícios e vantagens para pequenos empreendedores</p>
+        </div>
+
+        <div class="row gy-4">
+          <div class="col-lg-6">
+            <h3>Oque é MEI?</h3>
+            <img src="{% static 'base/img/about.jpg' %}" class="img-fluid rounded-4 mb-4" alt="">
+            <p>MEI é a sigla para Microempreendedor Individual. É uma categoria jurídica criada pelo governo brasileiro para formalizar e facilitar a legalização de pequenos empreendedores. O MEI possui vantagens como simplificação do processo de registro, tributação simplificada e acesso a benefícios previdenciários. É uma opção interessante para quem deseja iniciar um negócio de forma simples e com menos burocracia..</p>
+          </div>
+          <div class="col-lg-6">
+            <div class="content ps-0 ps-lg-5">
+              <p class="fst-italic">
+                
+              </p>
+              <h3>Quais são as vantagens de ser MEI?</h3>
+              <ul>
+
+                <p class="fst-italic">
+                  <strong>Vantagens de ser um MEI</strong>
+                </p>
+                <li><i class="bi bi-check-circle-fill"></i>Benefícios previdenciários como acesso a aposentadoria, auxílio-doença, licença-maternidade, entre outros.</li>
+                <li><i class="bi bi-check-circle-fill"></i>Emissão de nota fiscal com possibilidade de oferecer serviços e produtos de forma legalizada.</li>
+                <li><i class="bi bi-check-circle-fill"></i>Menos burocracia: menor carga tributária e obrigações simplificadas.</li>
+
+                <p class="fst-italic">
+                 <strong>Baixo custo e tributação simplificada</strong> 
+                </p>
+                <li><i class="bi bi-check-circle-fill"></i>Pagamento de impostos unificados DAS (Documento de Arrecadação Simplificada).</li>
+                <li><i class="bi bi-check-circle-fill"></i> Isenção de impostos federais como imposto de Renda, PIS, Cofins, entre outros.</li>
+                <li><i class="bi bi-check-circle-fill"></i>Contribuição mensal fixa: facilita o planejamento financeiro do empreendedor.</li>
+
+                <p class="fst-italic">
+                  <strong>Oportunidades de crescimento</strong>
+                </p>
+                <li><i class="bi bi-check-circle-fill"></i> Facilidade de abertura de conta bancária: acesso a serviços financeiros e crédito.</li>
+                <li><i class="bi bi-check-circle-fill"></i>Participação em licitações públicas: possibilidade de fornecer para órgãos governamentais.</li>
+                <li><i class="bi bi-check-circle-fill"></i>Acesso a benefícios e capacitações oferecidos pelo Sebrae e outras entidades.</li>
+
+                <p class="fst-italic">
+                  <strong>Flexibilidade e autonomia</strong>
+                </p>
+                <li><i class="bi bi-check-circle-fill"></i>Flexibilidade de horários e formas de trabalho.</li>
+                <li><i class="bi bi-check-circle-fill"></i>Liberdade para gerenciar seu próprio negócio e tomar decisões..</li>
+              </ul>
+              <p>
+                Lembre-se de que ser um MEI pode ser uma excelente opção para iniciar seu próprio negócio, com menos burocracia e vantagens específicas. E nós estamos aqui para ajudar você a entender os conceitos básicos e responder às suas perguntas mais comuns. Mas lembre-se de que cada situação é única, e um contador será seu melhor aliado para orientá-lo de acordo com suas necessidades individuais.
+              </p>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Us Section -->
+    <div class="section-header">
+      <h2>Parceiros de sucesso!</h2>
+      <p>Seja você um parceiro também.</p>
+    </div>
+    <!-- ======= Clients Section ======= -->
+    <section id="clients" class="clients">
+      <div class="container" data-aos="zoom-out">
+
+        <div class="clients-slider swiper">
+          <div class="swiper-wrapper align-items-center">
+            <div class="swiper-slide"><img src="{% static 'base/img/clients/client-1.png' %}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{% static 'base/img/clients/client-2.png' %}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{% static 'base/img/clients/client-3.png' %}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{% static 'base/img/clients/client-4.png' %}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{% static 'base/img/clients/client-5.png' %}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{% static 'base/img/clients/client-6.png' %}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{% static 'base/img/clients/client-7.png' %}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{% static 'base/img/clients/client-8.png' %}" class="img-fluid" alt=""></div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Clients Section -->
+
+    <!-- ======= Stats Counter Section ======= -->
+    <section id="stats-counter" class="stats-counter">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row gy-4 align-items-center">
+
+          <div class="col-lg-6">
+            <img src="{% static 'base/img/stats-img.svg' %}" alt="" class="img-fluid">
+          </div>
+
+          <div class="col-lg-6">
+
+            <div class="stats-item d-flex align-items-center">
+              <span data-purecounter-start="0" data-purecounter-end="{{total_usuario}}" data-purecounter-duration="1" class="purecounter"></span>
+              <p><strong>Usuários Cadastrados -</strong> Nossa comunidade em constante crescimento se fortalece a cada dia. Juntos, estamos disseminando o conhecimento!</p>
+            </div><!-- End Stats Item -->
+
+            <div class="stats-item d-flex align-items-center">
+              <span data-purecounter-start="0" data-purecounter-end="{{total_comentarios}}" data-purecounter-duration="1" class="purecounter"></span>
+              <p><strong>Comentários e Respostas -</strong> Em nossos posts, comentários, dúvidas e respostas criam um ambiente rico em discussões. Sua pergunta também pode ser a de outro, venha participar</p>
+            </div><!-- End Stats Item -->
+
+            <div class="stats-item d-flex align-items-center">
+              <span data-purecounter-start="0" data-purecounter-end="{{blog.count}}" data-purecounter-duration="1" class="purecounter"></span>
+              <p><strong>Publicações em Nosso Blog -</strong> Oferecemos uma ampla gama de dicas úteis que certamente te auxiliarão a dar os primeiros passos ou impulsionar o seu negócio. Explore e descubra!</p>
+            </div><!-- End Stats Item -->
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Stats Counter Section -->
+
+    <!-- ======= Our Services Section ======= -->
+    <section id="services" class="services sections-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Nossos serviços</h2>
+          <p>Oferecemos uma variedade de serviços para impulsionar o seu início no mundo do empreendedorismo. Conte conosco para auxiliá-lo nessa jornada e alcançar o sucesso em seu negócio.</p>
+          <br>
+          <h4>Veja alguns deles.</h4>
+        </div>
+
+        <div class="row gy-4" data-aos="fade-up" data-aos-delay="100">
+
+          <div class="col-lg-4 col-md-6">
+            <div class="service-item  position-relative">
+              <div class="icon">
+                <i class="bi bi-activity"></i>
+              </div>
+              <h3>Consultoria Especializada</h3>
+              <p>Oferecemos consultoria especializada para auxiliar empreendedores iniciantes a entenderem o processo de abertura de MEI, esclarecer dúvidas e fornecer orientações personalizadas.</p>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-4 col-md-6">
+            <div class="service-item position-relative">
+              <div class="icon">
+                <i class="bi bi-info-square"></i>
+              </div>
+              <h3>Atualizações e Novidades</h3>
+              <p>atualizações e novidades relacionadas ao MEI, como mudanças nas leis, benefícios adicionais e alterações nas obrigações fiscais.</p>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-4 col-md-6">
+            <div class="service-item position-relative">
+              <div class="icon">
+                <i class="bi bi-card-checklist"></i>
+              </div>
+              <h3>Guia Passo a Passo</h3>
+              <p>Disponibilizamos um guia detalhado e intuitivo que apresenta o passo a passo para abrir um MEI, com informações atualizadas e relevantes sobre documentação, taxas e obrigações legais.</p>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-4 col-md-6">
+            <div class="service-item position-relative">
+              <div class="icon">
+                <i class="bi bi-wechat"></i>
+              </div>
+              <h3>Fórum de Discussão</h3>
+              <p>Criamos um espaço interativo onde os empreendedores podem participar de discussões, trocar experiências e fazer perguntas sobre o MEI, proporcionando um ambiente colaborativo e de aprendizado mútuo. Se ainda não é cadastrado crie sua conta agora mesmo e participe interagindo nos mais diversos assuntos.</p>
+              <a href="javascript:void(0)" class="readmore stretched-link" data-toggle="modal" data-target="#underDevelopmentModal">Entra <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-4 col-md-6">
+            <div class="service-item position-relative">
+              <div class="icon">
+                <i class="bi bi-calendar4-week"></i>
+              </div>
+              <h3>Webinars e Workshops</h3>
+              <p> Realizamos webinars e workshops temáticos com especialistas, abordando tópicos relevantes para empreendedores, como gestão financeira, marketing digital e estratégias de crescimento para MEIs..</p>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-4 col-md-6">
+            <div class="service-item position-relative">
+              <div class="icon">
+                <i class="bi bi-chat-square-text"></i>
+              </div>
+              <h3>Chat de duvidas.</h3>
+              <p>Temos um chat disponível com especialistas prontos para ajudar a esclarecer suas dúvidas e orientar você a dar o primeiro passo em seus planos empreendedores. Estamos aqui para oferecer o suporte necessário e garantir que você esteja preparado para alcançar seus objetivos.</p>
+            </div>
+          </div><!-- End Service Item -->
+
+        </div>
+
+      </div>
+    </section><!-- End Our Services Section -->
+
+    <!-- ======= Testimonials Section ======= -->
+    <section id="testimonials" class="testimonials">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Oque estão falando sobre nós.</h2>
+          <p>Esses são exemplos fictícios de profissionais e feedbacks que representam como o portal EmpreendeAI pode oferecer suporte, orientação e recursos úteis para empreendedores iniciantes e MEIs.</p>
+        </div>
+
+        <div class="slides-3 swiper" data-aos="fade-up" data-aos-delay="100">
+          <div class="swiper-wrapper">
+            {% for feedbacks in feedbacks  %}
+            <div class="swiper-slide">
+              <div class="testimonial-wrap">
+                <div class="testimonial-item">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <h3>{{feedbacks.nome }}</h3>
+                      <h4>{{feedbacks.funcao }}</h4>
+                    </div>
+                  </div>
+                  <p>
+                    <i class="bi bi-quote quote-icon-left"></i>
+                    {{feedbacks.mensagem }}
+                    <i class="bi bi-quote quote-icon-right"></i>
+                  </p>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+            {% endfor %}
+
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+    </section><!-- End Testimonials Section -->
+
+
+  
+   
+    <!-- ======= Frequently Asked Questions Section ======= -->
+    <section id="faq" class="faq">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4">
+            <div class="content px-xl-5">
+              <h3><strong>Perguntas</strong> Frequentes </h3>
+              <p>
+                Selecionamos algumas das dúvidas mais frequentes dos usuários e fornecemos respostas para ajudá-lo e orientá-lo da melhor forma possível.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-8">
+
+            <div class="accordion accordion-flush" id="faqlist" data-aos="fade-up" data-aos-delay="100">
+
+              {% for faq in faq %}
+              <div class="accordion-item"> 
+              <h3 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-{{ forloop.counter }}">
+                  <span class="num">{{ forloop.counter }}.</span>
+                  {{faq.pergunta}}
+                </button>
+              </h3>
+              <div id="faq-content-{{ forloop.counter }}" class="accordion-collapse collapse" data-bs-parent="#faqlist">
+                <div class="accordion-body">
+                  {{faq.resposta|safe}}
+                </div>
+              </div>
+            </div><!-- # Faq item-->
+            {% endfor %}
+ 
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Frequently Asked Questions Section -->
+
+    <!-- ======= Recent Blog Posts Section ======= -->
+    <section id="recent-posts" class="recent-posts sections-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Postagens Recentes no Forum</h2>
+          <p>Fique por dentro das novidades e se mantenha atualizado</p>
+        </div>
+
+        <div class="row gy-4">
+
+          {% for blog in recent_posts|slice:":3" %}
+          <div class="col-xl-4 col-md-6">
+            <article>
+
+              <div class="post-img">
+                <img src="{{blog.image.url}}" alt="" class="img-fluid">
+              </div>
+
+              <p class="post-category">{{blog.tema}}</p>
+
+              <h2 class="title">
+                <a href="{% url 'blog:blog_detalhe' blog.id %}">{{blog.titulo}}</a>
+              </h2>
+
+              <div class="d-flex align-items-center">
+                {% comment %} <img src="{% static 'base/img/blog/blog-author.jpg' %}" alt="" class="img-fluid post-author-img flex-shrink-0"> {% endcomment %}
+                <div class="post-meta">
+                  <p class="post-author">Autor: {{blog.usuario}}</p>
+                  <p class="post-date">
+                    <time datetime="2022-01-01">{{blog.data}}</time>
+                  </p>
+                </div>
+              </div>
+
+            </article>
+          </div><!-- End post list item -->
+          {% endfor %}
+        </div><!-- End recent posts list -->
+
+      </div>
+    </section><!-- End Recent Blog Posts Section -->
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Contato</h2>
+        </div>
+
+        <div class="row gx-lg-0 gy-4">
+
+          <div class="col-lg-4" id="form-contato-ancora">
+
+            <div class="info-container d-flex flex-column align-items-center justify-content-center">
+              <div class="info-item d-flex">
+                <i class="bi bi-geo-alt flex-shrink-0"></i>
+                <div>
+                  <h4>Localização:</h4>
+                  <p>{{contato.endereco}}</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="info-item d-flex">
+                <i class="bi bi-envelope flex-shrink-0"></i>
+                <div>
+                  <h4>Email:</h4>
+                  <p>{{contato.email}}</p>
+                </div>
+              </div><!-- End Info Item -->
+
+              <div class="info-item d-flex">
+                <i class="bi bi-phone flex-shrink-0"></i>
+                <div>
+                  <h4>Telefone:</h4>
+                  <p>+55 {{contato.telefone}}</p>
+                </div>
+              </div><!-- End Info Item -->
+
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-8">
+            <form method="POST" action="{% url 'home:contato_cliente' %}" class="php-email-form">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <input type="text" name="nome" class="form-control" id="name" placeholder="Seu Nome" >
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Seu email" >
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Assunto" >
+              </div>
+              <div class="form-group mt-3">
+                <textarea class="form-control" name="msg" rows="7" placeholder="Mensagem"></textarea>
+              </div>
+              <div class="text-center">
+                <button type="submit">Enviar Mensagem</button>
+              </div>
+            </form>
+          </div><!-- End Contact Form -->
+          
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+
+
+{% endblock %}

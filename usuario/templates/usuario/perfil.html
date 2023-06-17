@@ -1,0 +1,249 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'header' %}
+<header id="header" class="header d-flex align-items-center">
+
+  <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+    <a href="{% url 'home:home' %}" class="logo d-flex align-items-center">
+      <!-- Uncomment the line below if you also wish to use an image logo -->
+      <!-- <img src="assets/img/logo.png" alt=""> -->
+      <h1>Empreende<span>Ai</span></h1>
+    </a>
+    <nav id="navbar" class="navbar">
+      <ul>
+        <li><a href="#hero">Inicio</a></li>
+        <li><a href="#about">Sobre</a></li>
+        <li><a href="#services">Serviços</a></li>
+        <li><a href="{% url 'blog:blog' %}">Blog</a></li>
+        <li><a href="#contact">Contato</a></li> 
+        <li><a style="color:#ffff"></a></li>
+        <li>
+          {% if 'usuario' in request.session %}
+              <li class="dropdown"><a href="#"><i class="bi bi-person-fill" style="font-size: 1.5em;"></i><span>{{usuario.userName}}</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                <ul>
+                  <li><a href="{% url 'autenticacao:perfil' %}">Editar Perfil</a></li>
+                  <hr>
+                  <li><a href="{% url 'autenticacao:sair' %}">Sair</a></li>
+                </ul>
+              </li>
+          
+              {% else %}
+              <a href="" data-bs-toggle="modal" data-bs-target="#loginModal"><i class="bi bi-box-arrow-in-right" style="font-size: 1.5em;"></i> Entrar</a>
+          {% endif %}
+        </li>
+      </ul>
+    </nav><!-- .navbar -->
+
+    <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+    <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+
+  </div>
+</header><!-- End Header -->
+{% endblock  %}
+
+{% block 'conteudo' %}
+<div class="breadcrumbs">
+  <div class="page-header d-flex align-items-center" style="background-image: url('');">
+    <div class="container position-relative">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-6 text-center">
+          <h2>Editar Perfil</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav>
+    <div class="container">
+      <ol>
+        <li><a href="{% url 'home:home' %}">Home</a></li>
+        <li>Editar perfil</li>
+      </ol>
+    </div>
+  </nav>
+</div><!-- End Breadcrumbs -->
+
+<br>
+  <div class="content-wrapper">
+
+    <div class="container-xxl flex-grow-1 container-p-y">
+      <div class="card">
+        <h5 class="card-header">AVISO:</h5>
+        <div class="card-body">
+          <div class="mb-3 col-12 mb-0">
+            <div class="alert alert-warning">
+              <p class="mb-0">PAGINA EM DESENVOLVIMENTO - <strong>ALTERAR SENHA ESTA FUNCIONANDO</strong> </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card mb-4">
+            <h5 class="card-header">Perfil</h5>
+            <!-- Account -->
+            <form action="" method="POST" enctype="multipart/form-data" >{% csrf_token %}  
+            <div class="card-body">
+              <div class="d-flex align-items-start align-items-sm-center mb-3 col-md-6">
+                {% if not usuario.fotoPerfil %}
+                <img
+                  src="{% static 'base/img/blog/17004.png' %}"
+                  alt="user-avatar"
+                  class="d-block rounded"
+                  height="100"
+                  width="100"
+                  id="uploadedAvatar"/>
+                {% else %}
+                <img
+                  src="{{ usuario.fotoPerfil.url }}"
+                  alt="user-avatar"
+                  class="d-block rounded"
+                  height="100"
+                  width="100"
+                  id="uploadedAvatar"/>
+                {% endif %}
+                <div class="button-wrapper gap-4 mb-3 col-md-6 gradient-buttons" >
+                  <a href="javascript:void(0)" data-toggle="modal" data-target="#underDevelopmentModal">
+                  <label for="upload"  class="btn btn-primary me-2 mb-4" tabindex="0">
+                    <span class="d-none d-sm-block">Carregar nova foto</span>
+                    <i class="bx bx-upload d-block d-sm-none"></i>
+                    <input name='fotoPerfil'
+                    {% comment %} type="file"
+                    id="upload" {% endcomment %}
+                    class="account-file-input"
+                    hidden />
+                  </label>
+                </a>
+                </div>
+              </div>
+            </div>
+            <hr class="my-0" />
+            <div class="card-body">
+
+              <div class="row mb-3">
+                <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Usuario Logado</label>
+                <div class="col-md-8 col-lg-9">
+                  <input name="senha_atual" type="text" class="form-control" id="currentPassword" value="{{ usuario.userName }}" disabled="disabled">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                <div class="col-md-8 col-lg-9">
+                  <input name="email" type="email" class="form-control" id="yourEmail" value="{{usuario.usuarioEmail}}" disabled="disabled">
+                </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Nome Completo</label>
+                <div class="col-md-8 col-lg-9">
+                  <input name="nome" type="text" class="form-control" id="fullName" value="{{usuario.nomeUsuario}}" required>
+                </div>
+              </div>
+
+              {% comment %} <div class="row mb-3">
+                <label for="genero" name='genero' class="col-md-4 col-lg-3 col-form-label">Formação</label>
+                <div class="col-md-8 col-lg-9">
+                    <select name="formacao" class=" form-control">
+                      {% for formacao in formacao  %}
+                       <option value="{{formacao.nomeFormacao }}">{{formacao.nomeFormacao }}</option required>
+                      {% endfor %}
+                    </select>
+                 </div>
+              </div> {% endcomment %}
+
+              {% comment %} <div class="row mb-3">
+                <label for="sobre" class="col-md-4 col-lg-3 col-form-label">Sobre</label>
+                <div class="col-md-8 col-lg-9">
+                  <textarea name="sobre" class="form-control" id="about" style="height: 100px">{{request_usuario.sobre}}</textarea>
+                </div>
+              </div> {% endcomment %}
+
+              {% comment %} <div class="row mb-3">
+                <label for="genero" name='genero' class="col-md-4 col-lg-3 col-form-label">Gênero</label>
+                <div class="col-md-8 col-lg-9">
+                    <select name="genero" class=" form-control">
+                      <option value="{{request_usuario.genero}}">{{request_usuario.genero}}</option>
+                      <option value="Outro">Outro</option>
+                      <option value="Feminino">Feminino</option>
+                      <option value="Masculino">Masculino</option>
+                    </select>
+                 </div>
+              </div> {% endcomment %}
+
+            <!-- Modal -->
+            <div class="mt-2 gradient-buttons">
+              <a href="javascript:void(0)" data-toggle="modal" data-target="#underDevelopmentModal">
+              <button  class="btn btn-primary me-2">Savar alterações</button>
+              </a>
+            </div>
+          </form>
+        </div>
+        <!-- /Account -->
+      </div>
+
+
+          <div class="card">
+            <h5 class="card-header">Redefinir senha</h5>
+            <div class="card-body">
+              <form  action="{% url 'usuario:alterar_senha' %}" method="POST">
+                {% csrf_token %}
+                <div class="card-body">
+                  <div class="row mb-3">
+                    <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Senha</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name='senha' type="password" class="form-control"value="" required>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="fullName" class="col-md-4 col-lg-3 col-form-label">confirmar senha</label>
+                    <div class="col-md-8 col-lg-9">
+                      <input name='confirmar_senha' type="password" class="form-control" id="fullName" value="" required>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-2 gradient-buttons">
+                  <button type='submit' class="btn btn-primary me-2">Savar alterações</button>
+                </div>
+              </form>
+            </div>
+          </div> 
+          <br>
+          <div class="card">
+            <h5 class="card-header">Desativar conta</h5>
+            <div class="card-body">
+              <div class="mb-3 col-12 mb-0">
+                <div class="alert alert-warning">
+                  <h6 class="alert-heading fw-bold mb-1">
+                    Tem certeza de que deseja Desativar sua conta?</h6>
+                  <p class="mb-0">Depois de desativar sua conta, não há como voltar atrás. Por favor, tenha certeza.</p>
+                </div>
+              </div>
+              <form  action="{% url 'usuario:delete_usuario_logado' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-check mb-3">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="accountActivation"
+                    id="accountActivation"
+                  />
+                  <label class="form-check-label" for="accountActivation">Confirmo a desativação da minha conta</label>
+                </div>
+                <button type='submit'  class="btn btn-danger deactivate-account">Desativar Conta</button>
+              </form>
+            </div>
+          </div> 
+
+        </div>
+      </div>
+    </div>
+    <br><br>
+    <!-- / Content -->
+
+      <!-- Fim principal -->
+
+
+
+{% endblock %}
